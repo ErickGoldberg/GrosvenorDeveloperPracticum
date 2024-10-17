@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrosvenorDeveloperPracticum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrosvenorDeveloperPracticum.Domain", "Domain\GrosvenorDeveloperPracticum.Domain.csproj", "{5453F61B-43B6-4BAA-821A-BC3F042A3B74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrosvenorDeveloperPracticum.API", "GrosvenorDeveloperPracticum.API\GrosvenorDeveloperPracticum.API.csproj", "{0944F02A-3943-4396-B2FF-A1D17C19E722}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrosvenorDeveloperPracticum.API", "API\GrosvenorDeveloperPracticum.API.csproj", "{0944F02A-3943-4396-B2FF-A1D17C19E722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
