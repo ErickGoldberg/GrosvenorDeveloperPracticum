@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Application;
+﻿using System.Linq;
+using GrosvenorDeveloperPracticum.Application;
+using GrosvenorDeveloperPracticum.Domain.Entities;
 using NUnit.Framework;
 
-namespace ApplicationTests
+namespace GrosvenorDeveloperPracticum.Tests
 {
     [TestFixture]
     public class DishManagerTests
@@ -27,11 +27,9 @@ namespace ApplicationTests
         [Test]
         public void GetDishes_OrderWithOneDish_ShouldReturnOneSteak()
         {
-            var order = new Order
-            {
-                Dishes = new List<int> { 1 },
-                Period = "evening" 
-            };
+            var order = new Order();
+            order.SetPeriod("evening");
+            order.AddDish(1);
 
             var actual = _sut.GetDishes(order);
             Assert.AreEqual(1, actual.Count);

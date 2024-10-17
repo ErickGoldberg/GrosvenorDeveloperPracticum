@@ -1,7 +1,7 @@
-﻿using Application;
+﻿using GrosvenorDeveloperPracticum.Application;
 using NUnit.Framework;
 
-namespace ApplicationTests
+namespace GrosvenorDeveloperPracticum.Tests
 {
     [TestFixture]
     public class ServerTests

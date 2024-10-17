@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using GrosvenorDeveloperPracticum.Domain.Entities;
 
-namespace Application
+namespace GrosvenorDeveloperPracticum.Domain.Interfaces
 {
 
     public interface IDishManager

@@ -1,4 +1,4 @@
-﻿namespace Application
+﻿namespace GrosvenorDeveloperPracticum.Domain.Interfaces
 {
     public interface IServer
     {

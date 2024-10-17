@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using GrosvenorDeveloperPracticum.Domain.Entities;
+using GrosvenorDeveloperPracticum.Domain.Interfaces;
 
-namespace Application
+namespace GrosvenorDeveloperPracticum.Application
 {
     public class Server : IServer
     {
@@ -29,26 +31,18 @@ namespace Application
 
         private Order ParseOrder(string unparsedOrder)
         {
-            var returnValue = new Order
-            {
-                Dishes = new List<int>()
-            };
+            var returnValue = new Order();
 
             var orderItems = unparsedOrder.Split(',');
-            var period = orderItems[0].Trim().ToLower();  
+            var period = orderItems[0].Trim();
 
-            if (period != "morning" && period != "evening")
-            {
-                throw new ApplicationException("Invalid period. Must be 'morning' or 'evening'.");
-            }
-
-            returnValue.Period = period;
+            returnValue.SetPeriod(period);
 
             for (var i = 1; i < orderItems.Length; i++)
             {
                 if (int.TryParse(orderItems[i], out var parsedOrder))
                 {
-                    returnValue.Dishes.Add(parsedOrder);
+                    returnValue.AddDish(parsedOrder);
                 }
                 else
                 {
@@ -78,7 +72,7 @@ namespace Application
         {
             if (count > 1)
                 return $"(x{count})";
-            
+
             return "";
         }
     }

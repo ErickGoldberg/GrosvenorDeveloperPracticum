@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GrosvenorDeveloperPracticum.Domain.Entities;
+using GrosvenorDeveloperPracticum.Domain.Interfaces;
 
-namespace Application
+namespace GrosvenorDeveloperPracticum.Application
 {
     public class DishManager : IDishManager
     {
         public List<Dish> GetDishes(Order order)
         {
             var returnValue = new List<Dish>();
-            order.Dishes.Sort();
+            order.SortDishes();
 
             foreach (var dishType in order.Dishes)
             {
-                AddOrderToList(dishType, returnValue, order.Period); 
+                AddOrderToList(dishType, returnValue, order.Period);
             }
 
             return returnValue;
@@ -26,15 +28,12 @@ namespace Application
 
             if (existingOrder == null)
             {
-                returnValue.Add(new Dish
-                {
-                    DishName = orderName,
-                    Count = 1
-                });
+                var newDish = new Dish(orderName, 1);
+                returnValue.Add(newDish);
             }
             else if (IsMultipleAllowed(dishType, period))
             {
-                existingOrder.Count++;
+                existingOrder.IncrementCount();
             }
             else
             {
