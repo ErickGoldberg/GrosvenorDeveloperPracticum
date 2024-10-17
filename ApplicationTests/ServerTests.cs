@@ -20,65 +20,51 @@ namespace ApplicationTests
 
         }
 
-        [Test]
-        public void ErrorGetsReturnedWithBadInput()
+        [TestCase("one", "error", TestName = "TakeOrder_BadInput_ShouldReturnError")]
+        public void TakeOrder_BadInput(string order, string expected)
         {
-            var order = "one";
-            string expected = "error";
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void CanServeSteak()
+        [TestCase("evening,1", "steak", TestName = "TakeOrder_ValidSteakOrder_ShouldReturnSteak")]
+        public void TakeOrder_ValidSteakOrder(string order, string expected)
         {
-            var order = "1";
-            string expected = "steak";
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void CanServe2Potatoes()
+        [TestCase("evening,2,2", "potato(x2)", TestName = "TakeOrder_ValidPotatoOrder_ShouldReturnPotatoX2")]
+        public void TakeOrder_ValidPotatoOrder(string order, string expected)
         {
-            var order = "2,2";
-            string expected = "potato(x2)";
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void CanServeSteakPotatoWineCake()
+        [TestCase("evening,1,2,3,4", "steak,potato,wine,cake", TestName = "TakeOrder_ValidMixedOrder_ShouldReturnSteakPotatoWineCake")]
+        public void TakeOrder_ValidMixedOrder(string order, string expected)
         {
-            var order = "1,2,3,4";
-            string expected = "steak,potato,wine,cake";
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void CanServeSteakPotatox2Cake()
+        [TestCase("evening,1,2,2,4", "steak,potato(x2),cake", TestName = "TakeOrder_ValidSteakPotatoX2Order_ShouldReturnSteakPotatoX2Cake")]
+        public void TakeOrder_ValidSteakPotatoX2Order(string order, string expected)
         {
-            var order = "1,2,2,4";
-            string expected = "steak,potato(x2),cake";
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void CanGenerateErrorWithWrongDish()
+        [TestCase("1,2,3,5", "error", TestName = "TakeOrder_InvalidDish_ShouldReturnError")]
+        public void TakeOrder_InvalidDish(string order, string expected)
         {
-            var order = "1,2,3,5";
-            string expected = "error";
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void CanGenerateErrorWhenTryingToServerMoreThanOneSteak()
+        [TestCase("1,1,2,3", "error", TestName = "TakeOrder_MultipleSteaks_ShouldReturnError")]
+        public void TakeOrder_MultipleSteaks(string order, string expected)
         {
-            var order = "1,1,2,3";
-            string expected = "error";
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }

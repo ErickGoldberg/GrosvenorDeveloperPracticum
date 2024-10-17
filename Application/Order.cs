@@ -8,6 +8,9 @@ namespace Application
         {
             Dishes = new List<int>();
         }
+
+        public string Period { get; set; } 
         public List<int> Dishes { get; set; }
     }
+
 }

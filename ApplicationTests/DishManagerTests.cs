@@ -3,7 +3,6 @@ using System.Linq;
 using Application;
 using NUnit.Framework;
 
-
 namespace ApplicationTests
 {
     [TestFixture]
@@ -18,7 +17,7 @@ namespace ApplicationTests
         }
 
         [Test]
-        public void EmptyListReturnsEmptyList()
+        public void GetDishes_EmptyOrder_ShouldReturnEmptyList()
         {
             var order = new Order();
             var actual = _sut.GetDishes(order);
@@ -26,14 +25,12 @@ namespace ApplicationTests
         }
 
         [Test]
-        public void ListWith1ReturnsOneSteak()
+        public void GetDishes_OrderWithOneDish_ShouldReturnOneSteak()
         {
             var order = new Order
             {
-                Dishes = new List<int>
-                {
-                    1
-                }
+                Dishes = new List<int> { 1 },
+                Period = "evening" 
             };
 
             var actual = _sut.GetDishes(order);

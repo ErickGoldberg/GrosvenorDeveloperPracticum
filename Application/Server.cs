@@ -11,14 +11,14 @@ namespace Application
         {
             _dishManager = dishManager;
         }
-        
+
         public string TakeOrder(string unparsedOrder)
         {
             try
             {
-                Order order = ParseOrder(unparsedOrder);
-                List<Dish> dishes = _dishManager.GetDishes(order);
-                string returnValue = FormatOutput(dishes);
+                var order = ParseOrder(unparsedOrder);
+                var dishes = _dishManager.GetDishes(order);
+                var returnValue = FormatOutput(dishes);
                 return returnValue;
             }
             catch (ApplicationException)
@@ -26,7 +26,6 @@ namespace Application
                 return "error";
             }
         }
-
 
         private Order ParseOrder(string unparsedOrder)
         {
@@ -36,17 +35,27 @@ namespace Application
             };
 
             var orderItems = unparsedOrder.Split(',');
-            foreach (var orderItem in orderItems)
+            var period = orderItems[0].Trim().ToLower();  
+
+            if (period != "morning" && period != "evening")
             {
-                if (int.TryParse(orderItem, out int parsedOrder))
+                throw new ApplicationException("Invalid period. Must be 'morning' or 'evening'.");
+            }
+
+            returnValue.Period = period;
+
+            for (var i = 1; i < orderItems.Length; i++)
+            {
+                if (int.TryParse(orderItems[i], out var parsedOrder))
                 {
                     returnValue.Dishes.Add(parsedOrder);
                 }
                 else
                 {
-                    throw new ApplicationException("Order needs to be comma separated list of numbers");
+                    throw new ApplicationException("Order needs to be a comma-separated list of numbers.");
                 }
             }
+
             return returnValue;
         }
 
@@ -56,13 +65,11 @@ namespace Application
 
             foreach (var dish in dishes)
             {
-                returnValue = returnValue + string.Format(",{0}{1}", dish.DishName, GetMultiple(dish.Count));
+                returnValue += $",{dish.DishName}{GetMultiple(dish.Count)}";
             }
 
             if (returnValue.StartsWith(","))
-            {
                 returnValue = returnValue.TrimStart(',');
-            }
 
             return returnValue;
         }
@@ -70,9 +77,8 @@ namespace Application
         private object GetMultiple(int count)
         {
             if (count > 1)
-            {
-                return string.Format("(x{0})", count);
-            }
+                return $"(x{count})";
+            
             return "";
         }
     }
